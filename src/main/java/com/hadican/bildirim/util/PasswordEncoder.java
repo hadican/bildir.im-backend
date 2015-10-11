@@ -8,13 +8,12 @@ import org.apache.commons.codec.binary.Base64;
 
 public class PasswordEncoder {
 
-	private MessageDigest digester;
+	private final MessageDigest digester;
+	private final byte[] salt;
 
-	private static final String ALGORITHM = "YOUR_ALGORITHM";
-	private static final byte[] SALT = "YOUR_SALT".getBytes(StandardCharsets.UTF_8);
-
-	public PasswordEncoder() throws NoSuchAlgorithmException {
-		digester = MessageDigest.getInstance(ALGORITHM);
+	public PasswordEncoder(String salt, String algorithm) throws NoSuchAlgorithmException {
+		this.digester = MessageDigest.getInstance(algorithm);
+		this.salt = salt.getBytes(StandardCharsets.UTF_8);
 	}
 
 	public String encode(String password) {
@@ -25,7 +24,7 @@ public class PasswordEncoder {
 		synchronized (digester) {
 			digester.reset();
 			result = digester.digest(passwordInBytes);
-			digester.update(SALT);
+			digester.update(salt);
 			result = digester.digest(result);
 		}
 

@@ -31,7 +31,7 @@ public class BildirimApplication extends Application<BildirimConfiguration> {
 		final Datastore userDatastore = morphia.createDatastore(new MongoClient(), "users");
 
 		// create user manager to handle user CRUD actions
-		final UserManager userManager = new UserManager(userDatastore);
+		final UserManager userManager = new UserManager(userDatastore, configuration);
 
 		// HTTP client with default Dropwizard configurations
 		final HttpClient httpClient = new HttpClientBuilder(environment).build("httpClient");

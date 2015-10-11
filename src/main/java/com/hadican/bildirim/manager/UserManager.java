@@ -8,6 +8,7 @@ import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.hadican.bildirim.configuration.BildirimConfiguration;
 import com.hadican.bildirim.model.registration.User;
 import com.hadican.bildirim.util.PasswordEncoder;
 
@@ -18,9 +19,9 @@ public class UserManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserManager.class);
 
-	public UserManager(Datastore userDatastore) throws NoSuchAlgorithmException {
+	public UserManager(Datastore userDatastore, BildirimConfiguration configuration) throws NoSuchAlgorithmException {
 		this.userDatastore = userDatastore;
-		this.passwordEncoder = new PasswordEncoder();
+		this.passwordEncoder = new PasswordEncoder(configuration.getPasswordSalt(), configuration.getPasswordAlgorithm());
 	}
 
 	/**
