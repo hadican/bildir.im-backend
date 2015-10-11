@@ -1,8 +1,3 @@
 apiKey: YOUR_API_KEY
-server:
-  applicationConnectors:
-    - type: http
-      port: 8080
-  adminConnectors:
-    - type: http
-      port: 8081
+passwordSalt: YOUR_SALT
+passwordAlgorithm: YOUR_ALGORITHM
