@@ -8,6 +8,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,11 +43,10 @@ public class NotificationResource {
 		try {
 			// create HTTP post request to GCM
 			HttpPost httpRequest = new HttpPost("https://android.googleapis.com/gcm/send");
-			// add headers
+			// add header authorization header
 			httpRequest.addHeader("Authorization", "key=" + apiKey);
-			httpRequest.addHeader("Content-Type", "application/json");
 			// add posted body directly
-			httpRequest.setEntity(new StringEntity(body));
+			httpRequest.setEntity(new StringEntity(body, ContentType.APPLICATION_JSON));
 			// make the call
 			HttpResponse httpResponse = httpClient.execute(httpRequest);
 			// get the response
